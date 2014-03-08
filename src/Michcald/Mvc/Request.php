@@ -1,14 +1,18 @@
 <?php
 
-namespace Michcald;
+namespace Michcald\Mvc;
 
-class Response
+class Request
 {
     private $method;
+    
+    private $uri;
     
     private $queryParams = array();
     
     private $data = array();
+    
+    private $requestTime;
     
     public function setMethod($method)
     {
@@ -22,9 +26,21 @@ class Response
         return $this->method;
     }
     
-    public function addQueryParams($name, $value)
+    public function setUri($uri)
     {
-        $this->queryParams[$name] = $value;
+        $this->uri = $uri;
+        
+        return $this;
+    }
+    
+    public function getUri()
+    {
+        return $this->uri;
+    }
+    
+    public function setQueryParams(array $queryParams)
+    {
+        $this->queryParams = $queryParams;
         
         return $this;
     }
@@ -48,5 +64,17 @@ class Response
     public function getData()
     {
         return $this->data;
+    }
+    
+    public function setRequestTime($time)
+    {
+        $this->requestTime = $time;
+        
+        return $this;
+    }
+    
+    public function getRequestTime()
+    {
+        return $this->requestTime;
     }
 }
