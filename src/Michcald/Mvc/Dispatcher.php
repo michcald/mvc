@@ -10,17 +10,24 @@ class Dispatcher
         
         $controller = new $controllerClass();
         
-        $parentClass = get_parent_class($controller);
-        
-        if (!$parentClass instanceof Controller) {
+        if (!$controller instanceof Controller) {
             throw new \Exception('Controller must extend \\Michcald\\Mvc\\Controller');
         }
         
         $actionName = $route->getActionName();
         
-        $uriParams = $route->getUri()->getParams();
+        $params = $route->getUri()->getParamKeys();
         
-        $response = call_user_method($actionName, $controller, $uriParams);
+        $args = $this->getActionArgs($controllerClass, $actionName);
+        for ($i=0; $i<count($args); $i++) {
+            if ($args[$i] != $params[$i]) {
+                throw new \Exception('Action signature must be: ' . implode(', ', $params));
+            }
+        }
+        
+        $uriParams = $route->getUri()->getParamKeys($request);
+        
+        $response = call_user_method_array($actionName, $controller, $uriParams);
         
         if (!$response instanceof Response) {
             throw new \Exception('Action must return \\Michcald\\Mvc\\Response');
@@ -28,4 +35,15 @@ class Dispatcher
         
         return $response;
     }
+    
+    private function getActionArgs($obj, $method)
+    {
+        $f = new \ReflectionMethod($obj, $method);
+        $result = array();
+        foreach ($f->getParameters() as $param) {
+            $result[] = $param->name;   
+        }
+        
+        return $result;
+}
 }

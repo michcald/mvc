@@ -69,17 +69,27 @@ class Uri
         throw new \Exception('Invalid URI param: ' . $name);
     }
     
-    public function getParams()
+    public function getParamKeys()
     {
-        $hits = preg_match_all('%^\{[^\}]\}$%', $this->pattern, $matches);
+        $hits = preg_match_all('%\{[^\}]*\}%', $this->pattern, $matches);
         
         if (!$hits) {
             return array();
         }
         
         $params = array();
-        foreach ($matches as $match) {
+        foreach ($matches[0] as $match) {
             $params[] = str_replace(array('{', '}'), array('', ''), $match);
+        }
+        
+        return $params;
+    }
+    
+    public function getParams(\Michcald\Mvc\Request $request)
+    {
+        $params = array();
+        foreach ($this->getParamKeys() as $key) {
+            $params[$key] = $this->getParam($request->getUri(), $key);
         }
         
         return $params;
