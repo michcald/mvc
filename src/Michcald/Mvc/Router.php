@@ -8,7 +8,11 @@ class Router
     
     public function addRoute(Router\Route $route)
     {
-        $this->routes[] = $route;
+        if (array_key_exists($route->getId(), $this->routes)) {
+            throw new \Exception('Route already exists: ' . $route->getId());
+        }
+        
+        $this->routes[$route->getId()] = $route;
         
         return $this;
     }
@@ -21,8 +25,10 @@ class Router
     public function route(Request $request)
     {
         foreach ($this->routes as $route) {
-            if ($route->getUri()->match($request->getUri())) {
-                return $route;
+            if ($route->hasMethod($request->getMethod())) {
+                if ($route->getUri()->match($request->getUri())) {
+                    return $route;
+                }
             }
         }
         
@@ -34,7 +40,6 @@ class Router
         foreach ($this->routes as $r) {
             if ($r->getId() == $routeId) {
                 $uri = $r->getUri()->generate($uriParams);
-                
                 return $uri;
             }
         }

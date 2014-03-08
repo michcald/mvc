@@ -14,6 +14,10 @@ class Dispatcher
             throw new \Exception('Controller must extend \\Michcald\\Mvc\\Controller');
         }
         
+        if (PHP_SAPI != 'cli' && $controller instanceof Controller\CliController) {
+            throw new \Exception('Cannot execute script from the web');
+        }
+        
         $actionName = $route->getActionName();
         
         $params = $route->getUri()->getParamKeys();

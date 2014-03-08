@@ -57,6 +57,8 @@ class Route
     
     public function hasMethod($method)
     {
+        $method = strtoupper($method);
+        
         return in_array($method, $this->methods);
     }
     

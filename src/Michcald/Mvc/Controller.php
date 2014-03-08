@@ -13,13 +13,27 @@ abstract class Controller
         return $this;
     }
     
+    /**
+     * @return \Michcald\Mvc\Request
+     */
     final protected function getRequest()
     {
         return $this->request;
     }
     
-    final protected function getView()
+    /**
+     * @return \Michcald\Mvc\Router
+     */
+    final protected function getRouter()
     {
-        return Container::get('mvc.view');
+        return Container::get('mvc.router');
+    }
+    
+    /**
+     * @return \Michcald\Mvc\Dispatcher
+     */
+    final protected function getDispatcher()
+    {
+        return Container::get('mvc.dispatcher');
     }
 }
