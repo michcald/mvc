@@ -67,10 +67,20 @@ class Route
         return $this;
     }
     
+    public function getControllerClass()
+    {
+        return $this->controllerClass;
+    }
+    
     public function setActionName($actionName)
     {
         $this->actionName = $actionName;
         
         return $this;
+    }
+    
+    public function getActionName()
+    {
+        return $this->actionName;
     }
 }
