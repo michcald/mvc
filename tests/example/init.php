@@ -55,14 +55,14 @@ $mvc->addRoute($route);
 // Route 4
 
 $uri = new \Michcald\Mvc\Router\Route\Uri();
-$uri->setPattern('db:schema:install');
+$uri->setPattern('db:schema:help');
 
 $route = new Michcald\Mvc\Router\Route();
-$route->setId('cli.db.schema.install')
+$route->setId('cli.db.schema.help')
     ->setMethods(array('CLI'))
     ->setUri($uri)
     ->setControllerClass('ConsoleController')
-    ->setActionName('testAction');
+    ->setActionName('helpAction');
 
 $mvc->addRoute($route);
 

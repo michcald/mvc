@@ -2,7 +2,7 @@
 
 class ConsoleController extends \Michcald\Mvc\Controller\CliController
 {
-    public function testAction()
+    public function helpAction()
     {
         $this->writeInfo('Start command');
         
