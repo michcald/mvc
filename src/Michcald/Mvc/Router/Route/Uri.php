@@ -26,31 +26,18 @@ class Uri
     
     public function getRegex()
     {
-        $uriRegex = $this->pattern;
+        $regex = $this->pattern;
         
         if ($this->pattern) {
             
-            preg_match_all('%' . $this->paramRegex . '%', $this->pattern, $matches);
-            
-            foreach ($matches[0] as $uriParam) {
-                $uriParam = str_replace(array('{', '}'), array('', ''), $uriParam);
-                if (array_key_exists($uriParam, $this->requirements)) {
-                    $uriRegex = str_replace(
-                        '{' . $uriParam . '}', 
-                        $this->requirements[$uriParam], 
-                        $uriRegex
-                    );
-                } else {
-                    $uriRegex = str_replace(
-                        '{' . $uriParam . '}', 
-                        $this->paramRegex2, 
-                        $uriRegex
-                    );
-                }
+            foreach ($this->requirements as $paramName => $paramRegex) {
+                $regex = str_replace('{' . $paramName . '}', $paramRegex, $regex);
             }
+            
+            $regex = preg_replace('%\{[^\}]*\}%', $this->paramRegex2, $regex);
         }
         
-        return '^' . $uriRegex . '$';
+        return '^' . $regex . '$';
     }
     
     public function getParam($uri, $name)
