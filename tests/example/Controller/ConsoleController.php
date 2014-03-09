@@ -1,8 +1,8 @@
 <?php
 
-class Cli extends \Michcald\Mvc\Controller\CliController
+class ConsoleController extends \Michcald\Mvc\Controller\CliController
 {
-    public function myAction()
+    public function testAction()
     {
         $this->writeInfo('Start command');
         

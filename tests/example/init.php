@@ -2,29 +2,57 @@
 
 ini_set('display_errors',1); 
 
-include '../vendor/autoload.php';
+include '../../vendor/autoload.php';
 
-include 'Controller/Http.php';
-include 'Controller/Cli.php';
+include 'Controller/HttpController.php';
+include 'Controller/ConsoleController.php';
 
 $mvc = new Michcald\Mvc\Mvc();
 
 // Route 1
 
 $uri = new \Michcald\Mvc\Router\Route\Uri();
-$uri->setPattern('api/{repository}/{id}')
+$uri->setPattern('api/{resource}/{id}')
     ->setRequirement('id', '\d+');
 
 $route = new Michcald\Mvc\Router\Route();
-$route->setId('michcald.ciao')
-    ->setMethods(array('GET','POST'))
+$route->setId('api.read')
+    ->setMethods(array('GET'))
     ->setUri($uri)
-    ->setControllerClass('Http')
-    ->setActionName('myAction');
+    ->setControllerClass('HttpController')
+    ->setActionName('readAction');
 
 $mvc->addRoute($route);
 
 // Route 2
+
+$uri = new \Michcald\Mvc\Router\Route\Uri();
+$uri->setPattern('api/{resource}');
+
+$route = new Michcald\Mvc\Router\Route();
+$route->setId('api.list')
+    ->setMethods(array('GET'))
+    ->setUri($uri)
+    ->setControllerClass('HttpController')
+    ->setActionName('listAction');
+
+$mvc->addRoute($route);
+
+// Route 3
+
+$uri = new \Michcald\Mvc\Router\Route\Uri();
+$uri->setPattern('api/{resource}');
+
+$route = new Michcald\Mvc\Router\Route();
+$route->setId('api.create')
+    ->setMethods(array('POST'))
+    ->setUri($uri)
+    ->setControllerClass('HttpController')
+    ->setActionName('createAction');
+
+$mvc->addRoute($route);
+
+// Route 4
 
 $uri = new \Michcald\Mvc\Router\Route\Uri();
 $uri->setPattern('db:schema:install');
@@ -33,7 +61,21 @@ $route = new Michcald\Mvc\Router\Route();
 $route->setId('cli.db.schema.install')
     ->setMethods(array('CLI'))
     ->setUri($uri)
-    ->setControllerClass('Cli')
-    ->setActionName('myAction');
+    ->setControllerClass('ConsoleController')
+    ->setActionName('testAction');
+
+$mvc->addRoute($route);
+
+// Route 5
+
+$uri = new \Michcald\Mvc\Router\Route\Uri();
+$uri->setPattern('(.*)');
+
+$route = new Michcald\Mvc\Router\Route();
+$route->setId('api.not-found')
+    ->setMethods(array('CLI', 'GET', 'POST', 'PUT', 'DELETE'))
+    ->setUri($uri)
+    ->setControllerClass('HttpController')
+    ->setActionName('notFoundAction');
 
 $mvc->addRoute($route);
