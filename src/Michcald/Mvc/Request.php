@@ -12,7 +12,7 @@ class Request
     
     private $data = array();
     
-    private $requestTime;
+    private $headers = array();
     
     public function setMethod($method)
     {
@@ -66,15 +66,24 @@ class Request
         return $this->data;
     }
     
-    public function setRequestTime($time)
+    public function setHeaders(array $headers)
     {
-        $this->requestTime = $time;
+        $this->headers = $headers;
         
         return $this;
     }
     
-    public function getRequestTime()
+    public function getHeaders()
     {
-        return $this->requestTime;
+        return $this->headers;
+    }
+    
+    public function getHeader($name, $default = false)
+    {
+        if (!array_key_exists($name, $this->headers)) {
+            return $default;
+        }
+        
+        return $this->headers[$name];
     }
 }

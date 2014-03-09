@@ -6,8 +6,7 @@ $request = new Michcald\Mvc\Request();
 
 $request->setMethod('post')
     ->setUri('api/news/5')
-    ->setQueryParams($_GET)
-    ->setRequestTime($_SERVER['REQUEST_TIME']);
+    ->setQueryParams($_GET);
 
 //$request->setMethod('cli')->setUri('db:schema:install');
 
