@@ -62,6 +62,11 @@ class Route
         return in_array($method, $this->methods);
     }
     
+    public function getMethods()
+    {
+        return $this->methods;
+    }
+    
     public function setControllerClass($controllerClass)
     {
         $this->controllerClass = $controllerClass;

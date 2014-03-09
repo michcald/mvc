@@ -25,13 +25,14 @@ class Dispatcher
         $params = $route->getUri()->getParamKeys();
         
         $args = $this->getActionArgs($controllerClass, $actionName);
+        
         for ($i=0; $i<count($args); $i++) {
             if ($args[$i] != $params[$i]) {
                 throw new \Exception('Action signature must be: ' . implode(', ', $params));
             }
         }
         
-        $uriParams = $route->getUri()->getParamKeys($request);
+        $uriParams = $route->getUri()->getParams($request);
         
         $response = call_user_method_array($actionName, $controller, $uriParams);
         

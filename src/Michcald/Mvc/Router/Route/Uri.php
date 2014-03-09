@@ -4,6 +4,10 @@ namespace Michcald\Mvc\Router\Route;
 
 class Uri
 {
+    private $paramRegex = '\{[a-zA-Z][a-zA-Z0-9_]*\}';
+    
+    private $paramRegex2 = '[a-zA-Z][a-zA-Z0-9_]*';
+    
     private $pattern;
     
     private $requirements = array();
@@ -26,7 +30,7 @@ class Uri
         
         if ($this->pattern) {
             
-            preg_match_all('%\{[^\}]*\}%', $this->pattern, $matches);
+            preg_match_all('%' . $this->paramRegex . '%', $this->pattern, $matches);
             
             foreach ($matches[0] as $uriParam) {
                 $uriParam = str_replace(array('{', '}'), array('', ''), $uriParam);
@@ -39,7 +43,7 @@ class Uri
                 } else {
                     $uriRegex = str_replace(
                         '{' . $uriParam . '}', 
-                        '(.*)', 
+                        $this->paramRegex2, 
                         $uriRegex
                     );
                 }
@@ -71,7 +75,7 @@ class Uri
     
     public function getParamKeys()
     {
-        $hits = preg_match_all('%\{[^\}]*\}%', $this->pattern, $matches);
+        $hits = preg_match_all('%' . $this->paramRegex . '%', $this->pattern, $matches);
         
         if (!$hits) {
             return array();
@@ -123,7 +127,7 @@ class Uri
         $uri = $this->pattern;
         
         // verify if all the params have been provided
-        $hits = preg_match_all('%\{[^\}]*\}%', $this->pattern, $matches);
+        $hits = preg_match_all('%' . $this->paramRegex . '%', $this->pattern, $matches);
         
         foreach ($matches[0] as $p) {
             $field = str_replace(array('{', '}'), array('', ''), $p);

@@ -9,6 +9,6 @@ abstract class HttpController extends \Michcald\Mvc\Controller
      */
     final protected function getView()
     {
-        return Container::get('mvc.view');
+        return \Michcald\Mvc\Container::get('mvc.view');
     }
 }
