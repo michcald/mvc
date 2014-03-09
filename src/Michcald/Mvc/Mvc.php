@@ -29,11 +29,6 @@ class Mvc
         $dispatcher = Container::get('mvc.dispatcher');
         $response = $dispatcher->dispatch($request, $route);
         
-        // send the response
-        foreach ($response->getHeaders() as $header => $value) {
-            header($header . ': ' . $value);
-        }
-        
-        echo $response->getContent();
+        $response->send();
     }
 }

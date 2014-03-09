@@ -4,7 +4,7 @@ namespace Michcald\Mvc;
 
 class Response
 {
-    private $statusCode;
+    private $statusCode = 200;
     
     private $headers = array();
     
@@ -44,5 +44,24 @@ class Response
     public function getContent()
     {
         return $this->content;
+    }
+    
+    public function send()
+    {
+        // For 4.3.0 <= PHP <= 5.4.0
+        if (!function_exists('http_response_code')) {
+            $this->httpResponseCode($this->statusCode);
+        }
+
+        foreach ($this->getHeaders() as $header => $value) {
+            header($header . ': ' . $value);
+        }
+        
+        echo $this->getContent();
+    }
+    
+    private function httpResponseCode($statusCode)
+    {
+        header('X-PHP-Response-Code: ' . $statusCode, true, $statusCode);
     }
 }
