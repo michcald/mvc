@@ -19,7 +19,9 @@ include 'init.php';
 $router = Michcald\Mvc\Container::get('mvc.router');
 echo '<ul>';
 foreach ($router->getRoutes() as $route) {
-    echo '<li>' . implode(',', $route->getMethods()) . ' - ' . $route->getUri()->getPattern() . '</li>';
+    echo '<li>' . implode(',', $route->getMethods()) . ' - ' . 
+        $route->getUri()->getPattern() . ' - ' . $route->getUri()->getRegex() .
+        '</li>';
 }
 echo '</ul>';
 
