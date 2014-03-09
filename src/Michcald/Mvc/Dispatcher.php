@@ -10,6 +10,8 @@ class Dispatcher
         
         $controller = new $controllerClass();
         
+        $controller->setRequest($request);
+        
         if (!$controller instanceof Controller) {
             throw new \Exception('Controller must extend \\Michcald\\Mvc\\Controller');
         }
