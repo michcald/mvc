@@ -7,7 +7,7 @@ include '../../vendor/autoload.php';
 include 'Controller/HttpController.php';
 include 'Controller/ConsoleController.php';
 
-$mvc = new Michcald\Mvc\Mvc();
+$mvc = new \Michcald\Mvc\Mvc();
 
 // Route 1
 
