@@ -4,6 +4,7 @@ namespace Michcald\Mvc\Controller;
 
 abstract class HttpController extends \Michcald\Mvc\Controller
 {
+
     /**
      * @return \Michcald\Mvc\View
      */
@@ -11,4 +12,5 @@ abstract class HttpController extends \Michcald\Mvc\Controller
     {
         return \Michcald\Mvc\Container::get('mvc.view');
     }
+
 }

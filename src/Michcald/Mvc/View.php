@@ -4,9 +4,10 @@ namespace Michcald\Mvc;
 
 class View
 {
+
     public function render($file, array $data = array())
     {
-        if(!file_exists($file)) {
+        if (!file_exists($file)) {
             throw new \Exception('View file not found: ' . $file);
         }
 
@@ -19,4 +20,5 @@ class View
 
         return $content;
     }
+
 }

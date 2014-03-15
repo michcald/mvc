@@ -5,14 +5,14 @@ namespace Michcald\Mvc;
 abstract class Controller
 {
     private $request;
-    
+
     final public function setRequest(Request $request)
     {
         $this->request = $request;
-        
+
         return $this;
     }
-    
+
     /**
      * @return \Michcald\Mvc\Request
      */
@@ -20,7 +20,7 @@ abstract class Controller
     {
         return $this->request;
     }
-    
+
     /**
      * @return \Michcald\Mvc\Router
      */
@@ -28,7 +28,7 @@ abstract class Controller
     {
         return Container::get('mvc.router');
     }
-    
+
     /**
      * @return \Michcald\Mvc\Dispatcher
      */
@@ -36,4 +36,5 @@ abstract class Controller
     {
         return Container::get('mvc.dispatcher');
     }
+
 }
