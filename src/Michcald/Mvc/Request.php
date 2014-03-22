@@ -21,6 +21,11 @@ class Request
     {
         return $this->method;
     }
+    
+    public function isMethod($method)
+    {
+        return strtolower($this->method) == strtolower($method);
+    }
 
     public function setUri($uri)
     {
@@ -57,9 +62,17 @@ class Request
         return $this;
     }
 
-    public function getData()
+    public function getData($key = null, $default = null)
     {
-        return $this->data;
+        if (!$key) {
+            return $this->data;
+        }
+        
+        if (!array_key_exists($key, $this->data)) {
+            return $default;
+        }
+        
+        return $this->data[$default];
     }
 
     public function setHeaders(array $headers)
