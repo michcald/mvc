@@ -4,6 +4,40 @@ namespace Michcald\Mvc;
 
 class View
 {
+    private $helpers = array();
+    
+    public function addHelper($className, $id)
+    {
+        if (!class_exists($className)) {
+            throw new \Exception('Helper class does not exist: ' . $className);
+        }
+        
+        $parents = class_parents($className);
+        
+        if (!in_array('\\Michcald\\Mvc\\View\\Helper', $parents)) {
+            throw new \Exception(
+                'Helper class must extend \\Michcald\\Mvc\\View\\Helper: ' . $className);
+        }
+        
+        $this->helpers[$id] = $className;
+        
+        return $this;
+    }
+    
+    public function __call($name, $arguments)
+    {
+        if (!array_key_exists($name, $this->helpers)) {
+            throw new \Exception('Helper not found: ' . $name);
+        }
+        
+        $helperClassName = $this->helpers[$name];
+        
+        $helper = new $helperClassName();
+        
+        call_user_method_array('setArguments', $helper, $arguments);
+        
+        return call_user_method_array('execute', $helper, $arguments);
+    }
 
     public function render($file, array $data = array())
     {
