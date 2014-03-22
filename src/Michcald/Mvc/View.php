@@ -13,10 +13,10 @@ class View
         }
         
         $parents = class_parents($className);
-        
-        if (!in_array('\\Michcald\\Mvc\\View\\Helper', $parents)) {
+
+        if (!in_array('Michcald\Mvc\View\Helper', $parents)) {
             throw new \Exception(
-                'Helper class must extend \\Michcald\\Mvc\\View\\Helper: ' . $className);
+                'Helper class must extend Michcald\Mvc\View\Helper: ' . $className);
         }
         
         $this->helpers[$id] = $className;
@@ -34,9 +34,9 @@ class View
         
         $helper = new $helperClassName();
         
-        call_user_method_array('setArguments', $helper, $arguments);
+        call_user_method('setArguments', $helper, $arguments);
         
-        return call_user_method_array('execute', $helper, $arguments);
+        return call_user_method('execute', $helper);
     }
 
     public function render($file, array $data = array())
