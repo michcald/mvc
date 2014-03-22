@@ -72,7 +72,7 @@ class Request
             return $default;
         }
         
-        return $this->data[$default];
+        return $this->data[$key];
     }
 
     public function setHeaders(array $headers)
