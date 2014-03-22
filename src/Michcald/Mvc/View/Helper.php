@@ -13,10 +13,10 @@ abstract class Helper
         return $this;
     }
     
-    protected function getArg($index)
+    protected function getArg($index, $default = null)
     {
         if (!isset($this->args[$index])) {
-            throw new \Exception('Argument not found: ' . $index);
+            return $default;
         }
         
         return $this->args[$index];
