@@ -4,20 +4,21 @@ class ConsoleController extends \Michcald\Mvc\Controller\CliController
 {
     public function helpAction()
     {
-        $this->writeInfo('Start command');
+        $this->writeln('<green>Start command</green>');
         
-        $this->write('Normal text');
+        $this->writeln('Normal text');
         
-        $this->writeInfo('Do you wanna delete this?');
-        $this->writeError('This operation will delete everything');
+        $this->writeln('Do you wanna <cyan>delete</cyan> this?');
+        $this->writeln('<bg-red>This operation will delete everything</bg-red>');
             
         if ($this->confirm()) {
-            $this->writeSuccess('Deleted succesfully');
+            $this->writeln('<bg-green>Deleted succesfully</bg-green>');
         } else {
-            $this->writeWarning('Aborted');
+            $this->writeln('<light-blue>Aborted</light-blue>');
         }
 
         $response = new \Michcald\Mvc\Response();
+        
         return $response;
     }
 
