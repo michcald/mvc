@@ -15,12 +15,10 @@ class Manager
     
     public function dispatch($eventId, Event $event)
     {
-        if (!array_key_exists($eventId, $this->listeners)) {
-            throw new \Exception('Event not found: ' . $eventId);
-        }
-        
-        foreach ($this->listeners[$eventId] as $listener) {
-            call_user_func_array($listener, array($event));
+        if (array_key_exists($eventId, $this->listeners)) {
+            foreach ($this->listeners[$eventId] as $listener) {
+                call_user_func_array($listener, array($event));
+            }
         }
         
         return $this;
