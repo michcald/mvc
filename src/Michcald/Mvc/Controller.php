@@ -36,5 +36,13 @@ abstract class Controller
     {
         return Container::get('mvc.dispatcher');
     }
+    
+    /**
+     * @return \Michcald\Mvc\Event\Manager
+     */
+    final protected function getEventManager()
+    {
+        return Container::get('mvc.event_manager');
+    }
 
 }
