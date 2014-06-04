@@ -35,7 +35,7 @@ class Dispatcher
 
         $uriParams = $route->getUri()->getParams($request);
 
-        $response = call_user_method_array($actionName, $controller, $uriParams);
+        $response = call_user_func_array(array($controller, $actionName), $uriParams);
 
         if (!$response instanceof Response) {
             throw new \Exception('Action must return \\Michcald\\Mvc\\Response');
