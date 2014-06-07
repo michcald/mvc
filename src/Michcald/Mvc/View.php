@@ -34,9 +34,9 @@ class View
         
         $helper = new $helperClassName();
         
-        call_user_method('setArguments', $helper, $arguments);
-        
-        return call_user_method('execute', $helper);
+        call_user_func(array($helper, 'setArguments'), $arguments);
+
+        return call_user_func(array($helper, 'execute'));
     }
 
     public function render($file, array $data = array())
