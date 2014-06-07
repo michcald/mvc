@@ -20,9 +20,9 @@ class Response
         return $this->statusCode;
     }
 
-    public function addHeader($name, $value)
+    public function addHeader($header)
     {
-        $this->headers[$name] = $value;
+        $this->headers[] = $header;
 
         return $this;
     }
@@ -53,8 +53,8 @@ class Response
             http_response_code($this->statusCode);
         }
 
-        foreach ($this->getHeaders() as $header => $value) {
-            header($header . ': ' . $value);
+        foreach ($this->getHeaders() as $header) {
+            header($header);
         }
 
         echo $this->getContent();
