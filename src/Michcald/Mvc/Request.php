@@ -21,7 +21,7 @@ class Request
     {
         return $this->method;
     }
-    
+
     public function isMethod($method)
     {
         return strtolower($this->method) == strtolower($method);
@@ -55,6 +55,11 @@ class Request
         return $this->queryParams[$name];
     }
 
+    public function getQueryParams()
+    {
+        return $this->queryParams;
+    }
+
     public function setData(array $data)
     {
         $this->data = $data;
@@ -67,11 +72,11 @@ class Request
         if (!$key) {
             return $this->data;
         }
-        
+
         if (!array_key_exists($key, $this->data)) {
             return $default;
         }
-        
+
         return $this->data[$key];
     }
 
