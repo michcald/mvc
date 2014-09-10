@@ -36,13 +36,26 @@ abstract class Controller
     {
         return Container::get('mvc.dispatcher');
     }
-    
+
     /**
      * @return \Michcald\Mvc\Event\Manager
      */
     final protected function getEventManager()
     {
         return Container::get('mvc.event_manager');
+    }
+
+    protected function forward($controller, $action, array $params = array())
+    {
+        $obj = new $controller();
+
+        if (!$obj instanceof Controller) {
+            throw new \Exception(sprintf('Class %s must extend \Michcald\Mvc\Controller', $controller));
+        }
+
+        $obj->setRequest($this->getRequest());
+
+        return call_user_func(array($obj, $action), $params);
     }
 
 }
