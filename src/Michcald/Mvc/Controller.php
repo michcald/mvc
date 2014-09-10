@@ -55,7 +55,7 @@ abstract class Controller
 
         $obj->setRequest($this->getRequest());
 
-        return call_user_func(array($obj, $action), $params);
+        return call_user_func_array(array($obj, $action), $params);
     }
 
 }
