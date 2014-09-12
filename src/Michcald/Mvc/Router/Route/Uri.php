@@ -105,7 +105,7 @@ class Uri
         return false;
     }
 
-    public function generate(array $params)
+    public function generate(array $params = array())
     {
         $uri = $this->pattern;
 
